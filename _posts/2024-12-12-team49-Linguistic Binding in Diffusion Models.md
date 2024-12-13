@@ -6,8 +6,6 @@ author: Eric Hanchen Jiang, Yuheng Li, Zhu zi
 date: 2024-12-12
 ---
 
-# Linguistic Binding in Diffusion Models
-
 > This project explores the improvement of text-to-image diffusion models, focusing on the problem of language binding in stable diffusion models. Text-to-image generation usually suffers from attribute misbinding,  omissions, and semantic leakage, which can lead to inaccurate visual representations between textual prompts and generated images. Based on the SynGen method, our team proposes a new loss function by introducing an extra entropy term. During the denoising process, this entropy term aims to refine the attention graph to make the relationship between modifiers and their corresponding entities more accurate. This method achieves an improvement in the correspondence of attributes in the generated image compared to the Syngen method.
 
 <!--more-->
@@ -31,13 +29,13 @@ We can now begin to look specifically at the inaccurate binding of modifiers to 
 
 ![2]({{ '/assets/images/Team49/flamingo.jpg' | relative_url }})
 {: style="width: 400px; max-width: 100%;"}
-*Fig 1. Linguistic Binding in Diffusion Models: Enhancing Attribute Correspondence through Attention Map Alignment* [2].
+*Fig 1. Fig 1. Here we showed the results of the stable diffusion, where it sometimes didn't generate correctly.* [2].
 
 To address problems like these, SynGen[2] proposes 3 novel methods such as: (1) Syntactic Parsing of the Prompt, (2) Extraction of Cross-Attention Maps, (3) Language-Driven Cross-Attention Losses, and (4) Generating process interventions.
 
 ![2]({{ '/assets/images/Team49/syngen_flowchart.jpg' | relative_url}})
 {: style="width: 400px; max-width: 100%;"}
-*Fig 2. Linguistic Binding in Diffusion Models: Enhancing Attribute Correspondence through Attention Map Alignment* [2].
+*Fig 2. Flow chart of SynGen* [2].
 
 ## Methodology
 
@@ -66,7 +64,7 @@ SynGen was evaluated on multiple benchmark datasets (ABC-6K, DVMP, and Attend-an
 
 ![2]({{ '/assets/images/Team49/Syngen_evaluation.jpg' | relative_url }})
 {: style="width: 400px; max-width: 100%;"}
-*Fig 3. Linguistic Binding in Diffusion Models: Enhancing Attribute Correspondence through Attention Map Alignment* [2].
+*Fig 3. Linguistic Binding in Diffusion Models human evalutaion result, when comparing multiple datasets.* [2].
 
 
 
@@ -74,18 +72,18 @@ SynGen was evaluated on multiple benchmark datasets (ABC-6K, DVMP, and Attend-an
 Additionally, here are some visual comparisons:
 ![2]({{ '/assets/images/Team49/syngen_examples.jpg' | relative_url }})
 {: style="width: 400px; max-width: 100%;"}
-*Fig 4. Linguistic Binding in Diffusion Models: Enhancing Attribute Correspondence through Attention Map Alignment* [2].
+*Fig 4. SynGen, visual results.* [2].
 
 ![2]({{ '/assets/images/Team49/syngen_examples2.jpg' | relative_url }})
 {: style="width: 400px; max-width: 100%;"}
-*Fig 5. Linguistic Binding in Diffusion Models: Enhancing Attribute Correspondence through Attention Map Alignment* [2].
+*Fig 5. SynGen, visual results.* [2].
 
 
 
 ## Related Existing Literature
 
 ### Atted and Excite[3]
- https://arxiv.org/pdf/2301.13826 
+[source](https://arxiv.org/pdf/2301.13826)
 
 Attend-and-Excite (A&E) is a recently proposed inference-time technique that aims to address a specific semantic failure mode in text-to-image diffusion models known as catastrophic neglect. This failure occurs when a model fails to generate one or more of the subjects mentioned in a prompt. To overcome this, A&E intervenes during the generation process, modifying the latent representation to ensure each subject token is attended to by at least one patch in the image.
 
@@ -95,7 +93,7 @@ In contrast, SynGen takes this concept further by parsing the syntactic structur
 
 
 ### A-Star[4]
-https://arxiv.org/pdf/2306.14544
+[source](https://arxiv.org/pdf/2306.14544)
 
 Similarily, A-STAR is a test-time optimization method designed to improve semantic fidelity, the meaning of each words, in text-to-image diffusion models. Existing models, such as Stable Diffusion, often fail to accurately depict all concepts described in a prompt, frequently omitting certain subjects or misaligning attributes. Through a detailed analysis of cross-attention maps, A-STAR identifies two key issues. First, multiple concepts often overlap spatially in the attention maps, causing confusion and forcing the model to focus on only one. Second, even when all concepts are initially detected in early denoising steps, the model fails to retain this knowledge through to the final stages of generation, resulting in lost or neglected elements in the final image.
 
@@ -104,7 +102,7 @@ To address these problems, A-STAR introduces two new loss terms applied during i
 Evaluations show that A-STAR significantly outperforms baselines and prior approaches, including Attend-and-Excite. By applying these losses at test time without retraining the base model, A-STAR can generates images that better match the full semantic content of the input prompt most of the time.
 
 ### StructureDiffusion[5]
-https://arxiv.org/pdf/2212.05032
+[source](https://arxiv.org/pdf/2212.05032)
 
 Additionally, a new method named StructureDiffusion,  paper tackle the challenge of accurate compositional image synthesis and attribute binding. While large-scale diffusion models like Stable Diffusion can generate high-quality images, they often struggle when prompts involve multiple objects and their associated attributes, leading to misaligned colors, attributes, or even missing entities. To address these, this paper propose Training-Free Structured Diffusion Guidance, a method that integrates linguistic structures from parsed sentences into the diffusion process itself, thereby improving the compositional fidelity of generated images without requiring additional training data.
 
@@ -114,7 +112,7 @@ While the authors do not introduce a new loss function specific to their structu
 
 ## Implementation
 
-Official Code: https://github.com/RoyiRa/Linguistic-Binding-in-Diffusion-Models/blob/master/syngen_notebook.ipynb
+[Official Code](https://github.com/RoyiRa/Linguistic-Binding-in-Diffusion-Models/blob/master/syngen_notebook.ipynb)
 
 We decided to implement SynGen by downloading and running their code from Github. We run the syngen_notebook.ipynb, which contains their code and methodology, locally on our laptop using the GPU 4060 after all the necessary installation using Anaconda. From the code, we see that they include methods like calculate_positive_loss, calculate_negative_loss, and _calculate_losses to calculate their positive, negative, and final loss in code:
 
@@ -172,7 +170,7 @@ def _calculate_losses(self, attention_maps, all_subtree_pairs, subtree_indices, 
 
 ## Our Own Ideas
 
-Here is our new code: https://drive.google.com/file/d/1XtfmxtlWhjb1_ml7yZkb_eOQMEjrWBhV/view?usp=sharing
+[Here is our new code](https://drive.google.com/file/d/1XtfmxtlWhjb1_ml7yZkb_eOQMEjrWBhV/view?usp=sharing)
 
 To further enhance the semantic alignment between modifiers and their corresponding nouns, from SynGen, we introduce an additional Shannon entropy[6] term into our loss function. The intuition behind incorporating the idea of entropy in two aspects. First, for syntactically related words—such as a modifier-noun pair—we want their attention maps to be similar and more concentrated, thereby reducing semantic ambiguity. Second, when considering pairs of related words and unrelated words, we wish to enforce dissimilarity in their attention maps, effectively encouraging more diffuse, less focused attention distributions for the unrelated terms.
 
@@ -204,8 +202,7 @@ $$
 L = L_{\text{pos}} + L_{\text{neg}}.
 $$
 
-
-Below, we present images demonstrating the improved results achieved using this enhanced loss function.
+Below, we present images demonstrating the improved results achieved using this enhanced loss function when using the same seed, when comparing against the original.
 
 ![3]({{ '/assets/images/Team49/our_pic.jpg' | relative_url }})
 {: style="width: 400px; max-width: 100%;"}
@@ -228,4 +225,3 @@ Computer Vision and Pattern Recognition. 2023.
 Computer Vision and Pattern Recognition. 2023.
 
 [6] Shannon Entropy: https://www.sciencedirect.com/topics/engineering/shannon-entropy
-
