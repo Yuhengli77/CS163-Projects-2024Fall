@@ -1,1 +1,1 @@
-This is a placeholder file
+Images for our project report.
