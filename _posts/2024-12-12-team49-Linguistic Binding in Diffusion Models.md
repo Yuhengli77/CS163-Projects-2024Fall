@@ -29,7 +29,7 @@ We can now begin to look specifically at the inaccurate binding of modifiers to 
 
 ![2]({{ '/assets/images/Team49/flamingo.jpg' | relative_url }})
 {: style="width: 400px; max-width: 100%;"}
-*Fig 1. Fig 1. Here we showed the results of the stable diffusion, where it sometimes didn't generate correctly.* [2].
+*Fig 1. Here we showed the results of the stable diffusion, where it sometimes didn't generate correctly.* [2].
 
 To address problems like these, SynGen[2] proposes 3 novel methods such as: (1) Syntactic Parsing of the Prompt, (2) Extraction of Cross-Attention Maps, (3) Language-Driven Cross-Attention Losses, and (4) Generating process interventions.
 
